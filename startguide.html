@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GSAP スタートガイド</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        let div = document.querySelector(".animation-sample");
+        gsap.to(div,
+        {
+            x: 200,
+            duration: 1
+        });
+        });
+</script>
+    <style>
+        .animation-sample{
+            width: 200px;
+            height: 80px;
+            background-color: #fea7a7;
+            position: absolute;
+            left:0;
+            top:0;
+        }
+    </style>
+</head>
+<body>
+    <div class="animation-sample"></div>
+</body>
+</html>
