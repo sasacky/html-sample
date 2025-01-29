@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>クリックして開く、二段階アニメーションのナビゲーション</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Delius&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <link rel="stylesheet" href="css/reset.css">
+    <style>
+        body {
+            background-color: #e8fff7;
+            font-family: "Delius", serif;
+        }
+
+        .container {
+            height: 3000px;
+        }
+
+        .hamburger {
+
+            position: fixed;
+            right: 16px;
+            top: 16px;
+            width: 32px;
+            height: 32px;
+            z-index: calc(infinity);
+            background-color: #fff;
+            border-radius: 16px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hamburger__inner {
+            width: 1.3rem;
+            height: 2px;
+            background: transparent;
+            position: relative;
+        }
+
+        .hamburger__inner::before {
+            content: "";
+            width: 1.3rem;
+            height: 2px;
+            position: absolute;
+            top: -3px;
+            left: 0;
+            background-color: #4f4f4f;
+        }
+
+        .hamburger__inner::after {
+            content: "";
+            width: 1.3rem;
+            height: 2px;
+            position: absolute;
+            top: 3px;
+            left: 0;
+            background-color: #4f4f4f;
+        }
+
+        .nav {
+            position: fixed;
+            right: 9px;
+            top: 9px;
+            width: 46px;
+            height: 46px;
+            background-color: #63f1f1;
+            border-radius: 23px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .gnav {
+            opacity: 0;
+            display: none;
+            width: 80%;
+        }
+
+        .gnav__item:not(:last-of-type) {
+            border-bottom: 1px #b1b1b1 dotted;
+
+        }
+
+        .gnav__link {
+            padding: 0.8rem 1rem;
+            display: block;
+            text-decoration: none;
+            font-size: 1.4rem;
+            color: #0e6868;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="hamburger">
+            <div class="hamburger__inner"></div>
+        </div>
+
+        <nav class="nav">
+            <ul class="gnav">
+                <li class="gnav__item"><a href="#" class="gnav__link">home</a></li>
+                <li class="gnav__item"><a href="#" class="gnav__link">menu</a></li>
+                <li class="gnav__item"><a href="#" class="gnav__link">access</a></li>
+                <li class="gnav__item"><a href="#" class="gnav__link">contact</a></li>
+                <li class="gnav__item"><a href="#" class="gnav__link">privacy</a></li>
+            </ul>
+        </nav>
+
+
+    </div>
+</body>
+
+</html>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+
+        let hamburger = document.querySelector(".hamburger");
+        let nav = document.querySelector(".nav");
+        let gnav = document.querySelector(".gnav");
+
+        let screenWidth = window.innerWidth;
+        let screenHeight = window.innerHeight;
+
+
+        let tl = gsap.timeline({
+            paused: true
+        });
+        tl.to(nav, {
+            width: (screenWidth - 16) + "px",
+            duration: 0.3
+        });
+        tl.to(nav, {
+            height: (screenHeight - 16) + "px",
+            duration: 0.3
+        });
+        tl.to(gnav, {
+            display: "block",
+            duration: 0
+        }, '<');
+        tl.to(gnav, {
+            opacity: 1,
+            duration: 0.2
+        }, '<');
+
+        hamburger.addEventListener("click", () => {
+
+            if (!nav.classList.contains("open")) {
+                tl.play();
+                nav.classList.add("open");
+            } else {
+                tl.reverse();
+                nav.classList.remove("open");
+            }
+        });
+    });
+</script>
