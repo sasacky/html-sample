@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>三角関数を使ったアニメーション</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100%;
+            height: 100vh;
+            background-color: #efefef;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        a {
+            width: fit-content;
+            padding: 26px 54px 14px 14px;
+            border-radius: 8px;
+            display: block;
+            background-color: #4a4ae4;
+            color: #fff;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            filter: brightness(1);
+            transition: 0.2s;
+        }
+
+        a:hover {
+            filter: brightness(1.2);
+        }
+
+        a::before {
+            content: "";
+            display: block;
+            width: 10px;
+            height: 10px;
+            background-image: url("img/paper.png");
+            background-size: contain;
+            position: absolute;
+            transform: translate(-50%, -50%);
+            top: calc((sin(var(--angle)) * 24px) + 50%);
+            left: calc((cos(var(--angle)) * 70px) + 30%);
+            animation: ball 2.6s linear infinite;
+        }
+
+        a::after {
+            content: "";
+            display: block;
+            width: 20px;
+            height: 24px;
+            background-image: url("img/trush.png");
+            background-size: contain;
+            position: absolute;
+            transform-origin: bottom;
+            transform: translate(-50%, -50%) rotate(var(--angle));
+            top: 50%;
+            left: 80%;
+            animation: sway 2.6s linear infinite;
+        }
+
+        @property --angle {
+            syntax: '<angle>';
+            inherits: false;
+            initial-value: 0deg;
+        }
+
+        @keyframes sway {
+            0% {
+                --angle: 0deg;
+            }
+            40% {
+                --angle: 0deg;
+            }
+            45% {
+                --angle: 6deg;
+            }
+            50% {
+                --angle: -6deg;
+            }
+            55% {
+                --angle: 6deg;
+            }
+            60% {
+                --angle: -6deg;
+            }
+            65% {
+                --angle: 0deg;
+            }
+            100% {
+                --angle: 0deg;
+            }
+        }
+
+        @keyframes ball {
+            0% {
+                --angle: 195deg;
+            }
+            40% {
+                --angle: 345deg;
+            }
+            100% {
+                --angle: 345deg;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="#">
+        delete
+    </a>
+</body>
+</html>
