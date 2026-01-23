@@ -10,7 +10,6 @@
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             width: 100%;
             height: 100vh;
@@ -19,7 +18,6 @@
             justify-content: center;
             align-items: center;
         }
-
         a {
             width: fit-content;
             padding: 26px 54px 14px 14px;
@@ -34,11 +32,9 @@
             filter: brightness(1);
             transition: 0.2s;
         }
-
         a:hover {
             filter: brightness(1.2);
         }
-
         a::before {
             content: "";
             display: block;
@@ -47,12 +43,12 @@
             background-image: url("img/paper.png");
             background-size: contain;
             position: absolute;
-            transform: translate(-50%, -50%);
-            top: calc((sin(var(--angle)) * 24px) + 50%);
-            left: calc((cos(var(--angle)) * 70px) + 30%);
+            top: 50%;
+            left: 30%;
+            transform: translate(calc(cos(var(--paper-angle)) * 70px - 50%),
+                    calc(sin(var(--paper-angle)) * 24px - 50%));
             animation: ball 2.6s linear infinite;
         }
-
         a::after {
             content: "";
             display: block;
@@ -62,61 +58,50 @@
             background-size: contain;
             position: absolute;
             transform-origin: bottom;
-            transform: translate(-50%, -50%) rotate(var(--angle));
             top: 50%;
             left: 80%;
+            transform: translate(-50%, -50%) rotate(var(--trash-angle));
             animation: sway 2.6s linear infinite;
         }
-
-        @property --angle {
+        @property --paper-angle {
             syntax: '<angle>';
             inherits: false;
             initial-value: 0deg;
         }
-
+        @property --trash-angle {
+            syntax: '<angle>';
+            inherits: false;
+            initial-value: 0deg;
+        }
         @keyframes sway {
-            0% {
-                --angle: 0deg;
-            }
-            40% {
-                --angle: 0deg;
-            }
-            45% {
-                --angle: 6deg;
-            }
-            50% {
-                --angle: -6deg;
-            }
-            55% {
-                --angle: 6deg;
-            }
-            60% {
-                --angle: -6deg;
-            }
-            65% {
-                --angle: 0deg;
-            }
+            0%,
+            40%,
+            65%,
             100% {
-                --angle: 0deg;
+                --trash-angle: 0deg;
+            }
+            45%,
+            55% {
+                --trash-angle: 6deg;
+            }
+            50%,
+            60% {
+                --trash-angle: -6deg;
             }
         }
 
         @keyframes ball {
             0% {
-                --angle: 195deg;
+                --paper-angle: 195deg;
             }
-            40% {
-                --angle: 345deg;
-            }
+            40%,
             100% {
-                --angle: 345deg;
+                --paper-angle: 345deg;
             }
         }
     </style>
 </head>
 <body>
-    <a href="#">
-        delete
-    </a>
+    <a href="#">delete</a>
 </body>
 </html>
